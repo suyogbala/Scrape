@@ -26,3 +26,18 @@ with open('research.csv', 'w', newline = '') as file:
     writer = csv.writer(file)
     #writitng the header row to the csv file
     writer.writerow(['Techniqual_title', 'Use'])
+
+#iterating over the urls under the main url
+for alert in alerts:
+    #striping and changing into text to remove all the space beforew and after
+    alert_text = alert.text.strip()
+    #slicing the texts with ':' to make it into list and to identify if the folllowing text has #StopRansomware or not
+    parts = alert_text.split(':')
+    #Checking if the text has #StopRansomware or not
+    if parts[1].strip().startswith('#StopRansomware'):
+        #extracting the link of the texts which has #StopRansomware in it
+        link = alert.find('a')['href']
+        #creating the list of new urls taht has #StopRansomware in it
+        new_url = 'https://cisa.gov/uscert'+link
+        #appending it to the new_url list
+        urls.append(new_url)
