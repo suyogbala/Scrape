@@ -16,3 +16,13 @@ soup  = BeautifulSoup(response.content, 'html.parser')
 technical_title = []
 Use = []
 urls = []
+
+#finding the links using the html parser which has a class of 'views-field views-field-title'
+alerts = soup.findAll('div', {'class': 'views-field views-field-title'})
+
+#Opened the csv file
+with open('research.csv', 'w', newline = '') as file:
+    #creating the csv writer object
+    writer = csv.writer(file)
+    #writitng the header row to the csv file
+    writer.writerow(['Techniqual_title', 'Use'])
