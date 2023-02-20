@@ -41,3 +41,19 @@ for alert in alerts:
         new_url = 'https://cisa.gov/uscert'+link
         #appending it to the new_url list
         urls.append(new_url)
+
+#iterating over the url/pages that has #StopRansomware in it
+for x in urls:
+    #sending the get request to the url
+    r = requests.get(x)
+    #parsing the html content with BeautifulSoup Library
+    soup = BeautifulSoup(r.content, 'html.parser')
+    #finding the links using the html parser which has a class of 'Table'
+    table = soup.findAll('table', {'class': 'Table'})
+    #iterating over the each lines in table
+    for name in table:
+        Techniqual_title = name.tr.td.p.span.text
+        Use = name.tr.td.p.span.text
+        technical_title.append(Techniqual_title)
+        writer.writerow([technical_title, Use])
+        pass
